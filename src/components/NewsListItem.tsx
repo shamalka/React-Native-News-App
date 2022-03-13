@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import Icon, { Icons } from './Icons';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -11,9 +11,11 @@ import * as Animatable from 'react-native-animatable';
 import { Card } from '@ui-kitten/components';
 import moment from 'moment';
 
-const NewsListItem = ({item}:any) => {
+const NewsListItem = ({item, navigation}:any) => {
+    // console.log('nnn', navigation)
   return (
-     <View style={styles.newsListItem}>
+     <Pressable onPress={() => {navigation.navigate("SingleNewsScreen", {item})}}>
+        <View style={styles.newsListItem}>
          <Image source={{uri:item.urlToImage}} style={styles.image}/>
          <View style={{flex: 1}}>
             <Text numberOfLines={3} ellipsizeMode="tail" style={styles.newsItemTitle}>{item.title}</Text>
@@ -24,7 +26,8 @@ const NewsListItem = ({item}:any) => {
                 <Text numberOfLines={2} ellipsizeMode="tail"  style={styles.newsItemDescription}>{moment(item.publishedAt).fromNow()}</Text>
             </View>
          </View>
-     </View>
+        </View>
+     </Pressable>
   );
 }
 

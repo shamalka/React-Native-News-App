@@ -50,17 +50,7 @@ const carouselData:any = [
 ]
 
 const carouselItem = ({ item }:any) => {
-    console.log(item)
     return (
-        // <TouchableOpacity>
-        //     <Image source={{uri:item.urlToImage}} style={styles.image}/>
-        //     <View style={styles.carouselFooter}>
-        //         <Text style={styles.carouselTitle}>{item.title}</Text>
-        //     </View>
-
-        
-            
-        // </TouchableOpacity>
         <View style={styles.cardView}>
             <ImageBackground
                 style={styles.image}
@@ -75,7 +65,6 @@ const carouselItem = ({ item }:any) => {
                     <Text style={styles.sourceChipText}>{item.source.name}</Text>
                 </View>
                 <Text style={styles.itemTitle}>{item.title}</Text>
-                {/* <Text style={styles.itemDescription}>{item.description}</Text> */}
             </View>
             
         </View>
@@ -91,17 +80,7 @@ const Carousel = () => {
 }
 
 const styles = StyleSheet.create({
-    // image: {
-    //     width:width,
-    //     height: 250,
-    //     // marginVertical: 20,
-    //     resizeMode: 'cover',
-    //     // borderBottomLeftRadius: 30,
-    //     // borderBottomRightRadius: 30
-    // },
     carouselView: {
-        // flex: 1,
-        // height: '40%',
         backgroundColor: '#ffff'
     },
     carouselFooter: {
@@ -113,14 +92,12 @@ const styles = StyleSheet.create({
     },
     carouselTitle: {
         flex: 1,
-        // width: width,
         color: '#fff',
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 5,
         marginTop: 5
     },
-
     cardView: {
         width,
         height: height / 3,
@@ -128,7 +105,6 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
     },
-
     textView: {
         position: 'absolute',
         bottom: 10,

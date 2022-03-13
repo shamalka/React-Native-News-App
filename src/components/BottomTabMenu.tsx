@@ -41,24 +41,41 @@ const TabBarButton = (props:any) => {
 
 const BottomTabMenu = () => {
   return (
-      <NavigationContainer>
-          <Tab.Navigator screenOptions={{
-              headerShown:false,
-              tabBarStyle:{
-                  height: 55,
-                  borderTopLeftRadius:10,
-                  borderTopRightRadius:10,
-                  position: 'absolute',
-              }
-          }}>
-          {tabsArray.map((tab, index) => {
-              return <Tab.Screen key={index} name={tab.route} component={tab.component} options={{
-                  tabBarShowLabel: false,
-                  tabBarButton: (props) => <TabBarButton {...props} tab={tab}/>
-              }}/>
-          })}
-      </Tab.Navigator>
-      </NavigationContainer>
+
+    <Tab.Navigator screenOptions={{
+        headerShown:false,
+        tabBarStyle:{
+            height: 55,
+            borderTopLeftRadius:10,
+            borderTopRightRadius:10,
+            position: 'absolute',
+        }
+        }}>
+        {tabsArray.map((tab, index) => {
+            return <Tab.Screen key={index} name={tab.route} component={tab.component} options={{
+                tabBarShowLabel: false,
+                tabBarButton: (props) => <TabBarButton {...props} tab={tab}/>
+            }}/>
+        })}
+    </Tab.Navigator>
+    //   <NavigationContainer>
+    //       <Tab.Navigator screenOptions={{
+    //           headerShown:false,
+    //           tabBarStyle:{
+    //               height: 55,
+    //               borderTopLeftRadius:10,
+    //               borderTopRightRadius:10,
+    //               position: 'absolute',
+    //           }
+    //       }}>
+    //       {tabsArray.map((tab, index) => {
+    //           return <Tab.Screen key={index} name={tab.route} component={tab.component} options={{
+    //               tabBarShowLabel: false,
+    //               tabBarButton: (props) => <TabBarButton {...props} tab={tab}/>
+    //           }}/>
+    //       })}
+    //   </Tab.Navigator>
+    //   </NavigationContainer>
   );
 }
 

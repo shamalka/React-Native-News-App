@@ -39,7 +39,8 @@ const carouselData:any = [
 ]
 
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}:any) => {
+  console.log(navigation)
   return (
     <View style={{backgroundColor:'#fff', flex:1}}>
       <Carousel/>
@@ -49,7 +50,7 @@ const HomeScreen = () => {
         sources: "bbc-news",
         page: 1,
         pageSize: 10
-      }}/>
+      }} navigation={navigation}/>
     </View>
   );
 }
