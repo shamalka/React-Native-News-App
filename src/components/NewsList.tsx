@@ -26,22 +26,24 @@ const NewsList = ({filters, navigation}:any) => {
       // setNewsData(news.articles)
       console.log('cuurentpage', currentPage)
     getNewsTopHeadlines();
-  }, [currentPage])
+  }, [currentPage, filters])
 
   const getNewsTopHeadlines = () => {
     setIsLoading(true)
     console.log("Call API curent page - " + currentPage)
-    const baseUrl = "https://newsapi.org/v2/top-headlines?country=us&apiKey=abea547610574087a1e427a8be1cbc27&page=" + currentPage + "&pageSize=10"
+    // const baseUrl = "https://newsapi.org/v2/top-headlines?country=us&apiKey=abea547610574087a1e427a8be1cbc27&page=" + currentPage + "&pageSize=10"
+
+    const baseUrl = "https://run.mocky.io/v3/32ac4c3e-960e-453c-8997-06b2df3e227f";
 
     let encodedFilters = Object.keys(filters)
       .map(key => key + '=' + filters[key])
       .join('&');
 
-    // console.log(encodedFilters)  
+    console.log(encodedFilters)  
 
     axios.get(baseUrl).then((response) => {
         console.log('===================')
-        console.log("response", response);
+        console.log("response");
         console.log('===================')
         setNewsData([...newsData, ...response.data.articles])
         setIsLoading(false)
@@ -69,7 +71,7 @@ const NewsList = ({filters, navigation}:any) => {
 
   return (
     <View style={{backgroundColor:'#fff', flex:1, marginBottom: 45}}>
-        <FlatList data={newsData} renderItem={({item}) => <NewsListItem item={item} navigation={navigation}/>} keyExtractor={(item, index) => index.toString()} ListFooterComponent={footerLoader} onEndReached={onEndReached} onEndReachedThreshold={0}/>
+        <FlatList data={newsData} renderItem={({item}) => <NewsListItem item={item} navigation={navigation}/>} keyExtractor={(item, index) => index.toString()} ListFooterComponent={footerLoader} onEndReached={onEndReached} onEndReachedThreshold={1}/>
         {/* <ActivityIndicator style={{marginBottom: 5}} size="large" color="#aaa"/> */}
     </View>
   );

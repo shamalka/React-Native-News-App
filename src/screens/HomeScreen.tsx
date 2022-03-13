@@ -40,7 +40,6 @@ const carouselData:any = [
 
 
 const HomeScreen = ({navigation}:any) => {
-  console.log(navigation)
   return (
     <View style={{backgroundColor:'#fff', flex:1}}>
       <Carousel/>

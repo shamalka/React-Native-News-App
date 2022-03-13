@@ -8,11 +8,13 @@ import { StyleSheet } from 'react-native';
 import Icon, { Icons } from './Icons';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import * as Animatable from 'react-native-animatable';
+import SearchNewsScreen from '../screens/SearchNewsScreen';
 
 const Tab = createBottomTabNavigator();
 
 const tabsArray = [
     { route: 'Home', label: 'Home', type: Icons.MaterialCommunityIcons, activeIcon: 'newspaper', inActiveIcon: 'newspaper-outline', component: HomeScreen },
+    { route: 'SearchNews', label: 'SearchNews', type: Icons.MaterialCommunityIcons, activeIcon: 'text-box-search', inActiveIcon: 'text-box-search-outline', component: SearchNewsScreen },
     { route: 'Like', label: 'Like', type: Icons.MaterialCommunityIcons, activeIcon: 'fire', inActiveIcon: 'fire-outline', component: SettingsScreen },
     { route: 'Search', label: 'Search', type: Icons.MaterialCommunityIcons, activeIcon: 'menu', inActiveIcon: 'menu-outline', component: HomeScreen },
   ]
