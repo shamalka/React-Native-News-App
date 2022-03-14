@@ -25,7 +25,7 @@ export const Icons = {
     Foundation,
 }
 
-const Icon = ({type, name, color, size=24, style}:any) => {
+const Icon = ({ type, name, color, size = 24, style }: any) => {
     const fontSize = 24;
     const Tag = type;
     return (

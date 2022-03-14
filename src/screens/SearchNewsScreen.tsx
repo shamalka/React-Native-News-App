@@ -10,82 +10,82 @@ import { styled } from '@ui-kitten/components';
 import Icon, { Icons } from '../components/Icons';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import colors from '../configs/colors';
-const {width,height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-const SearchNewsScreen = ({ route, navigation }:any) => {
-    
-const [text, onChangeText] = useState("")  
-const [keyword, setKeyword] = useState("")
-const [modalVisible, setModalVisible] = useState(false);
+const SearchNewsScreen = ({ route, navigation }: any) => {
 
-const onSubmitEditing = (event:any) => {
-    setKeyword(event.nativeEvent.text)
-}
+    const [text, onChangeText] = useState("")
+    const [keyword, setKeyword] = useState("")
+    const [modalVisible, setModalVisible] = useState(false);
 
-return (
-    <View style={{backgroundColor:'#fff', flex:1}}>
-        <View style={styles.headingView}>
-            <Text style={styles.latestNewsText}>Search News</Text>
-        </View>
-        <View style={styles.bodyView}>
-            {/* <Text style={styles.latestNewsText}>Search News</Text> */}
-            <View style={styles.searchBarView}>
-                <View style={styles.searchBar}>
-                    <View style={styles.searchIconView}>
-                        <Icon style={styles.searchIcon} type={Icons.MaterialCommunityIcons} name={'text-box-search-outline'} color={'#808B96'}/>
-                    </View>
-                    <View style={styles.searchInputView}>
-                        <TextInput
-                            placeholder="Search news"
-                            style={styles.searchInput}
-                            onSubmitEditing={(event) => onSubmitEditing(event)}
-                            // value={text}
-                            placeholderTextColor={"#808B96"}
-                        />
-                    </View>
-                </View>
-                <Pressable onPress={() => {setModalVisible(true)}} style={styles.searchFilters}>
-                    <View >
-                        <Icon style={styles.searchIcon} type={Icons.MaterialCommunityIcons} name={'filter-variant'} color={colors.white} size={28}/>
-                    </View>
-                </Pressable>
+    const onSubmitEditing = (event: any) => {
+        setKeyword(event.nativeEvent.text)
+    }
+
+    return (
+        <View style={{ backgroundColor: '#fff', flex: 1 }}>
+            <View style={styles.headingView}>
+                <Text style={styles.latestNewsText}>Search News</Text>
             </View>
-            <View style={styles.newsView}>
-                <NewsList 
-                    filters={{
-                        q: keyword,
-                        category: 'world',
-                        sources: "bbc-news",
-                        page: 1,
-                        pageSize: 10
-                    }} 
-                    navigation={navigation}
-                />
+            <View style={styles.bodyView}>
                 {/* <Text style={styles.latestNewsText}>Search News</Text> */}
-            </View>
-        </View>
-        <Modal
-            animationType="fade"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-            setModalVisible(!modalVisible);
-            }}
-        >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Hello World!</Text>
-                    <Pressable
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={() => setModalVisible(!modalVisible)}
-                    >
-                    <Text style={styles.textStyle}>Hide Modal</Text>
+                <View style={styles.searchBarView}>
+                    <View style={styles.searchBar}>
+                        <View style={styles.searchIconView}>
+                            <Icon style={styles.searchIcon} type={Icons.MaterialCommunityIcons} name={'text-box-search-outline'} color={'#808B96'} />
+                        </View>
+                        <View style={styles.searchInputView}>
+                            <TextInput
+                                placeholder="Search news"
+                                style={styles.searchInput}
+                                onSubmitEditing={(event) => onSubmitEditing(event)}
+                                // value={text}
+                                placeholderTextColor={"#808B96"}
+                            />
+                        </View>
+                    </View>
+                    <Pressable onPress={() => { setModalVisible(true) }} style={styles.searchFilters}>
+                        <View >
+                            <Icon style={styles.searchIcon} type={Icons.MaterialCommunityIcons} name={'filter-variant'} color={colors.white} size={28} />
+                        </View>
                     </Pressable>
                 </View>
+                <View style={styles.newsView}>
+                    <NewsList
+                        filters={{
+                            q: keyword,
+                            category: 'world',
+                            sources: "bbc-news",
+                            page: 1,
+                            pageSize: 10
+                        }}
+                        navigation={navigation}
+                    />
+                    {/* <Text style={styles.latestNewsText}>Search News</Text> */}
+                </View>
             </View>
-        </Modal>
-    </View>
-  );
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Hello World!</Text>
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        >
+                            <Text style={styles.textStyle}>Hide Modal</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     headingView: {
-        flex:1,
+        flex: 1,
         justifyContent: 'flex-end'
     },
     bodyView: {
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     searchIconView: {
-        flex:1,
+        flex: 1,
         marginLeft: 5,
         justifyContent: 'center',
         alignItems: 'center'
@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginTop: 22
-      },
-      modalView: {
+    },
+    modalView: {
         margin: 20,
         backgroundColor: "white",
         borderRadius: 10,
@@ -163,33 +163,33 @@ const styles = StyleSheet.create({
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
-          width: 0,
-          height: 2
+            width: 0,
+            height: 2
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
-      },
-      button: {
+    },
+    button: {
         borderRadius: 20,
         padding: 10,
         elevation: 2
-      },
-      buttonOpen: {
+    },
+    buttonOpen: {
         backgroundColor: "#F194FF",
-      },
-      buttonClose: {
+    },
+    buttonClose: {
         backgroundColor: "#2196F3",
-      },
-      textStyle: {
+    },
+    textStyle: {
         color: "white",
         fontWeight: "bold",
         textAlign: "center"
-      },
-      modalText: {
+    },
+    modalText: {
         marginBottom: 15,
         textAlign: "center"
-      }
+    }
 })
 
 export default SearchNewsScreen;

@@ -11,24 +11,23 @@ import * as Animatable from 'react-native-animatable';
 import { Card } from '@ui-kitten/components';
 import moment from 'moment';
 
-const NewsListItem = ({item, navigation}:any) => {
-    // console.log('nnn', navigation)
-  return (
-     <Pressable onPress={() => {navigation.navigate("SingleNewsScreen", {item})}}>
-        <View style={styles.newsListItem}>
-         <Image source={{uri:item.urlToImage}} style={styles.image}/>
-         <View style={{flex: 1}}>
-            <Text numberOfLines={3} ellipsizeMode="tail" style={styles.newsItemTitle}>{item.title}</Text>
-            <View style={{flexDirection: 'row', marginLeft: 10, marginTop: 10}}>
-                <View style={styles.sourceChip}>
-                        <Text style={styles.sourceChipText}>{item.source.name}</Text>
+const NewsListItem = ({ item, navigation }: any) => {
+    return (
+        <Pressable onPress={() => { navigation.navigate("SingleNewsScreen", { item }) }}>
+            <View style={styles.newsListItem}>
+                <Image source={{ uri: item.urlToImage }} style={styles.image} />
+                <View style={{ flex: 1 }}>
+                    <Text numberOfLines={3} ellipsizeMode="tail" style={styles.newsItemTitle}>{item.title}</Text>
+                    <View style={{ flexDirection: 'row', marginLeft: 10, marginTop: 10 }}>
+                        <View style={styles.sourceChip}>
+                            <Text style={styles.sourceChipText}>{item.source.name}</Text>
+                        </View>
+                        <Text numberOfLines={2} ellipsizeMode="tail" style={styles.newsItemDescription}>{moment(item.publishedAt).fromNow()}</Text>
+                    </View>
                 </View>
-                <Text numberOfLines={2} ellipsizeMode="tail"  style={styles.newsItemDescription}>{moment(item.publishedAt).fromNow()}</Text>
             </View>
-         </View>
-        </View>
-     </Pressable>
-  );
+        </Pressable>
+    );
 }
 
 const styles = StyleSheet.create({

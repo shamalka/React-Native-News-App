@@ -11,12 +11,12 @@ import * as Animatable from 'react-native-animatable';
 import { View } from 'react-native';
 import { Text } from 'react-native';
 import { Image } from 'react-native';
-const {width,height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 import LinearGradient from 'react-native-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
 import { ImageBackground } from 'react-native';
 
-const carouselData:any = [
+const carouselData: any = [
     {
         title: "Panasonic Has New Battery That Will Make Tesla Cheaper, EVs Could Cost As Low As Rs 20 Lakh",
         description: "In the Electric Vehicle (EV) race, Tesla seems to have pulled ahead of its rivals. The Elon Musk-owned manufacturer has taken a lead in the US and European markets, making Tesla cars the most coveted EVs. But as the race to be numero uno heats up, Musk knows …",
@@ -49,34 +49,33 @@ const carouselData:any = [
     }
 ]
 
-const carouselItem = ({ item }:any) => {
+const carouselItem = ({ item }: any) => {
     return (
         <View style={styles.cardView}>
             <ImageBackground
                 style={styles.image}
-                source={{uri: item.urlToImage }}>
-                <LinearGradient 
-                    colors={['#00000000', '#000000']} 
-                    style={{height : '100%', width : '100%'}}/>
+                source={{ uri: item.urlToImage }}>
+                <LinearGradient
+                    colors={['#00000000', '#000000']}
+                    style={{ height: '100%', width: '100%' }} />
             </ImageBackground>
-            
             <View style={styles.textView}>
                 <View style={styles.sourceChip}>
                     <Text style={styles.sourceChipText}>{item.source.name}</Text>
                 </View>
                 <Text style={styles.itemTitle}>{item.title}</Text>
             </View>
-            
+
         </View>
     );
 }
 
 const Carousel = () => {
-  return (
-      <View style={styles.carouselView}>
-          <FlatList data={carouselData} renderItem={carouselItem} keyExtractor={(item, index) => index.toString()} horizontal showsHorizontalScrollIndicator={false} pagingEnabled/>
-      </View>
-  );
+    return (
+        <View style={styles.carouselView}>
+            <FlatList data={carouselData} renderItem={carouselItem} keyExtractor={(item, index) => index.toString()} horizontal showsHorizontalScrollIndicator={false} pagingEnabled />
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({

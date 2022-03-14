@@ -17,68 +17,68 @@ const tabsArray = [
     { route: 'SearchNews', label: 'SearchNews', type: Icons.MaterialCommunityIcons, activeIcon: 'text-box-search', inActiveIcon: 'text-box-search-outline', component: SearchNewsScreen },
     { route: 'Like', label: 'Like', type: Icons.MaterialCommunityIcons, activeIcon: 'fire', inActiveIcon: 'fire-outline', component: SettingsScreen },
     { route: 'Search', label: 'Search', type: Icons.MaterialCommunityIcons, activeIcon: 'menu', inActiveIcon: 'menu-outline', component: HomeScreen },
-  ]
+]
 
-const TabBarButton = (props:any) => {
-    const {tab, onPress, accessibilityState} = props;
+const TabBarButton = (props: any) => {
+    const { tab, onPress, accessibilityState } = props;
     const focused = accessibilityState.selected;
-    const animRef:any = useRef(null);
+    const animRef: any = useRef(null);
 
     useEffect(() => {
         if (focused) {
-            animRef.current.animate({0:{scale:1}, 1:{scale:1.5}})
+            animRef.current.animate({ 0: { scale: 1 }, 1: { scale: 1.5 } })
         } else {
-            animRef.current.animate({0:{scale:1.5}, 1:{scale:1}})
+            animRef.current.animate({ 0: { scale: 1.5 }, 1: { scale: 1 } })
         }
     }, [focused])
 
-    return(
+    return (
         <TouchableOpacity onPress={onPress} style={styles.container} activeOpacity={1}>
             <Animatable.View ref={animRef} duration={600} style={styles.container}>
-                <Icon type={tab.type} name={tab.activeIcon} color={focused ? Colors.primary : Colors.primaryLite}/>
+                <Icon type={tab.type} name={tab.activeIcon} color={focused ? Colors.primary : Colors.primaryLite} />
             </Animatable.View>
         </TouchableOpacity>
     )
 }
 
 const BottomTabMenu = () => {
-  return (
+    return (
 
-    <Tab.Navigator screenOptions={{
-        headerShown:false,
-        tabBarStyle:{
-            height: 55,
-            borderTopLeftRadius:10,
-            borderTopRightRadius:10,
-            position: 'absolute',
-        }
+        <Tab.Navigator screenOptions={{
+            headerShown: false,
+            tabBarStyle: {
+                height: 55,
+                borderTopLeftRadius: 10,
+                borderTopRightRadius: 10,
+                position: 'absolute',
+            }
         }}>
-        {tabsArray.map((tab, index) => {
-            return <Tab.Screen key={index} name={tab.route} component={tab.component} options={{
-                tabBarShowLabel: false,
-                tabBarButton: (props) => <TabBarButton {...props} tab={tab}/>
-            }}/>
-        })}
-    </Tab.Navigator>
-    //   <NavigationContainer>
-    //       <Tab.Navigator screenOptions={{
-    //           headerShown:false,
-    //           tabBarStyle:{
-    //               height: 55,
-    //               borderTopLeftRadius:10,
-    //               borderTopRightRadius:10,
-    //               position: 'absolute',
-    //           }
-    //       }}>
-    //       {tabsArray.map((tab, index) => {
-    //           return <Tab.Screen key={index} name={tab.route} component={tab.component} options={{
-    //               tabBarShowLabel: false,
-    //               tabBarButton: (props) => <TabBarButton {...props} tab={tab}/>
-    //           }}/>
-    //       })}
-    //   </Tab.Navigator>
-    //   </NavigationContainer>
-  );
+            {tabsArray.map((tab, index) => {
+                return <Tab.Screen key={index} name={tab.route} component={tab.component} options={{
+                    tabBarShowLabel: false,
+                    tabBarButton: (props) => <TabBarButton {...props} tab={tab} />
+                }} />
+            })}
+        </Tab.Navigator>
+        //   <NavigationContainer>
+        //       <Tab.Navigator screenOptions={{
+        //           headerShown:false,
+        //           tabBarStyle:{
+        //               height: 55,
+        //               borderTopLeftRadius:10,
+        //               borderTopRightRadius:10,
+        //               position: 'absolute',
+        //           }
+        //       }}>
+        //       {tabsArray.map((tab, index) => {
+        //           return <Tab.Screen key={index} name={tab.route} component={tab.component} options={{
+        //               tabBarShowLabel: false,
+        //               tabBarButton: (props) => <TabBarButton {...props} tab={tab}/>
+        //           }}/>
+        //       })}
+        //   </Tab.Navigator>
+        //   </NavigationContainer>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-      }
+    }
 })
 
 export default BottomTabMenu;

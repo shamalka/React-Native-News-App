@@ -10,36 +10,36 @@ import { styled } from '@ui-kitten/components';
 import Icon, { Icons } from '../components/Icons';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import colors from '../configs/colors';
-const {width,height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-const FullStoryWebView = ({ route, navigation }:any) => {
+const FullStoryWebView = ({ route, navigation }: any) => {
 
-  return (
-    <View style={{backgroundColor:'#fff', flex:1}}>
-        <View style={styles.headingView}>
-            <Text style={styles.headingText }>{"Full Story on " + route.params.source.name}</Text>
-        </View>
-        <View style={{flex:8}}>
-            <WebView
+    return (
+        <View style={{ backgroundColor: '#fff', flex: 1 }}>
+            <View style={styles.headingView}>
+                <Text style={styles.headingText}>{"Full Story on " + route.params.source.name}</Text>
+            </View>
+            <View style={{ flex: 8 }}>
+                <WebView
                     source={{
-                    uri: route.params.url
+                        uri: route.params.url
                     }}
                     startInLoadingState={true}
-                    renderLoading={() => <ActivityIndicator size="large" color="#aaa"/>}
+                    renderLoading={() => <ActivityIndicator size="large" color="#aaa" />}
                 />
+            </View>
         </View>
-    </View>
-  );
+    );
 }
 
 const styles = StyleSheet.create({
     headingView: {
-        backgroundColor: 'white', 
-        flex:1, 
+        backgroundColor: 'white',
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-end'
     },
-    headingText : {
+    headingText: {
         marginBottom: 10,
         fontSize: 20,
         fontWeight: 'bold'
