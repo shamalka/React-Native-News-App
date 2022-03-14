@@ -18,10 +18,12 @@
  import { NavigationContainer } from '@react-navigation/native';
  import { createStackNavigator } from '@react-navigation/stack';
 import SingleNewsScreen from './src/screens/SingleNewsScreen';
+import { Provider } from 'react-redux';
 import 'react-native-gesture-handler';
 
 import { LogBox } from 'react-native';
 import FullStoryWebView from './src/screens/FullStoryWebView';
+import { Store } from './src/redux/store';
 
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",
@@ -32,7 +34,8 @@ LogBox.ignoreLogs([
   const Stack = createStackNavigator();
  
    return (
-     <ApplicationProvider {...eva} theme={eva.light}>
+     <Provider store={Store}>
+       <ApplicationProvider {...eva} theme={eva.light}>
        <StatusBar translucent backgroundColor="transparent" />
        
        <NavigationContainer>
@@ -43,6 +46,7 @@ LogBox.ignoreLogs([
          </Stack.Navigator>
        </NavigationContainer>
      </ApplicationProvider>
+     </Provider>
    );
  };
  

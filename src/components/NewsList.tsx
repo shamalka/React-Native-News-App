@@ -11,10 +11,14 @@ import * as Animatable from 'react-native-animatable';
 import { Card } from '@ui-kitten/components';
 import axios from 'axios';
 import NewsListItem from './NewsListItem';
+import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
+import { setNewsData } from '../redux/actions';
 
 const NewsList = ({filters, navigation}:any) => {
 
-  const [newsData, setNewsData]:any = useState([]);  
+  const newsData = useSelector((state: RootStateOrAny) => state.newsReducer);
+  const dispatch = useDispatch();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,9 +34,7 @@ const NewsList = ({filters, navigation}:any) => {
 
   const getNewsTopHeadlines = () => {
     setIsLoading(true)
-    console.log("Call API curent page - " + currentPage)
     // const baseUrl = "https://newsapi.org/v2/top-headlines?country=us&apiKey=abea547610574087a1e427a8be1cbc27&page=" + currentPage + "&pageSize=10"
-
     const baseUrl = "https://run.mocky.io/v3/32ac4c3e-960e-453c-8997-06b2df3e227f";
 
     let encodedFilters = Object.keys(filters)
@@ -42,15 +44,9 @@ const NewsList = ({filters, navigation}:any) => {
     console.log(encodedFilters)  
 
     axios.get(baseUrl).then((response) => {
-        console.log('===================')
-        console.log("response");
-        console.log('===================')
-        setNewsData([...newsData, ...response.data.articles])
+        dispatch(setNewsData([...newsData.newsData, ...response.data.articles]))
         setIsLoading(false)
       }).catch(error => {
-        console.log('======error=====')
-        console.log(error)
-        console.log('=====error=======')
         setIsLoading(false)
       });
   }  
@@ -65,14 +61,12 @@ const NewsList = ({filters, navigation}:any) => {
   }
 
   const onEndReached = () => {
-      console.log("end reachedd..")
       setCurrentPage(currentPage + 1)
   }
 
   return (
     <View style={{backgroundColor:'#fff', flex:1, marginBottom: 45}}>
-        <FlatList data={newsData} renderItem={({item}) => <NewsListItem item={item} navigation={navigation}/>} keyExtractor={(item, index) => index.toString()} ListFooterComponent={footerLoader} onEndReached={onEndReached} onEndReachedThreshold={1}/>
-        {/* <ActivityIndicator style={{marginBottom: 5}} size="large" color="#aaa"/> */}
+        <FlatList data={newsData.newsData} renderItem={({item}) => <NewsListItem item={item} navigation={navigation}/>} keyExtractor={(item, index) => index.toString()} ListFooterComponent={footerLoader} onEndReached={onEndReached} onEndReachedThreshold={1}/>
     </View>
   );
 }

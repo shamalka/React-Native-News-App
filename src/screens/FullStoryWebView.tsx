@@ -14,16 +14,10 @@ const {width,height} = Dimensions.get('window');
 
 const FullStoryWebView = ({ route, navigation }:any) => {
 
-    console.log(route)
-
   return (
     <View style={{backgroundColor:'#fff', flex:1}}>
         <View style={styles.headingView}>
-
             <Text style={styles.headingText }>{"Full Story on " + route.params.source.name}</Text>
-            {/* <View style={styles.sourceChip}>
-                <Text style={styles.sourceChipText}>{"Full Story on " + route.params.source.name}</Text>
-            </View> */}
         </View>
         <View style={{flex:8}}>
             <WebView
