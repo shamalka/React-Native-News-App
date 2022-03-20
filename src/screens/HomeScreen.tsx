@@ -43,13 +43,8 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>
       <Carousel />
-      <Text style={styles.latestNewsText}>Latest News</Text>
-      <NewsList filters={{
-        category: 'world',
-        sources: "bbc-news",
-        page: 1,
-        pageSize: 10
-      }} navigation={navigation} />
+      <Text style={styles.latestNewsText}>Top Headlines</Text>
+      <NewsList filters={{}} navigation={navigation} newsType={"headlines"}/>
     </View>
   );
 }

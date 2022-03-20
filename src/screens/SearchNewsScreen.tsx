@@ -15,7 +15,7 @@ const { width, height } = Dimensions.get('window');
 const SearchNewsScreen = ({ route, navigation }: any) => {
 
     const [text, onChangeText] = useState("")
-    const [keyword, setKeyword] = useState("")
+    const [keyword, setKeyword] = useState("a")
     const [modalVisible, setModalVisible] = useState(false);
 
     const onSubmitEditing = (event: any) => {
@@ -28,7 +28,6 @@ const SearchNewsScreen = ({ route, navigation }: any) => {
                 <Text style={styles.latestNewsText}>Search News</Text>
             </View>
             <View style={styles.bodyView}>
-                {/* <Text style={styles.latestNewsText}>Search News</Text> */}
                 <View style={styles.searchBarView}>
                     <View style={styles.searchBar}>
                         <View style={styles.searchIconView}>
@@ -38,7 +37,7 @@ const SearchNewsScreen = ({ route, navigation }: any) => {
                             <TextInput
                                 placeholder="Search news"
                                 style={styles.searchInput}
-                                onSubmitEditing={(event) => onSubmitEditing(event)}
+                                onSubmitEditing={onSubmitEditing}
                                 // value={text}
                                 placeholderTextColor={"#808B96"}
                             />
@@ -54,14 +53,11 @@ const SearchNewsScreen = ({ route, navigation }: any) => {
                     <NewsList
                         filters={{
                             q: keyword,
-                            category: 'world',
-                            sources: "bbc-news",
-                            page: 1,
-                            pageSize: 10
+                            sortBy: "publishedAt"
                         }}
                         navigation={navigation}
+                        newsType={"filtered"}
                     />
-                    {/* <Text style={styles.latestNewsText}>Search News</Text> */}
                 </View>
             </View>
             <Modal
