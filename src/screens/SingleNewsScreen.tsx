@@ -10,7 +10,9 @@ import { styled } from '@ui-kitten/components';
 import Icon, { Icons } from '../components/Icons';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import colors from '../configs/colors';
+import EStyleSheet from 'react-native-extended-stylesheet';
 const { width, height } = Dimensions.get('window');
+EStyleSheet.build({$rem: width / 380});
 
 const carouselData: any = [
     {
@@ -53,8 +55,6 @@ const SingleNewsScreen = ({ route, navigation }: any) => {
     const colorStyles = {
         backgroundColor: avatarColors[Math.floor(Math.random() * (3 + 1))],
     };
-
-    console.log('rrrrr', navigation)
 
     const { item } = route.params;
 
@@ -128,7 +128,7 @@ const SingleNewsScreen = ({ route, navigation }: any) => {
     );
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     image: {
         flex: 2,
         // borderBottomLeftRadius: 30,
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     itemTitle: {
         // flex:4,
         color: 'white',
-        fontSize: 25,
+        fontSize: "25rem",
         shadowColor: '#000',
         shadowOffset: { width: 0.8, height: 0.8 },
         shadowOpacity: 1,
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
         opacity: 0.6,
         borderRadius: 10,
         color: 'white',
-        fontSize: 18,
+        fontSize: "18rem",
         shadowColor: '#000',
         shadowOffset: { width: 0.8, height: 0.8 },
         shadowOpacity: 1,
@@ -185,12 +185,12 @@ const styles = StyleSheet.create({
     },
     sourceChipText: {
         color: 'white',
-        fontSize: 12,
+        fontSize: "12rem",
         margin: 6
     },
     itemDescription: {
         color: 'black',
-        fontSize: 15,
+        fontSize: "15rem",
         flex: 2
     },
     author: {
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     authorAvatarText: {
-        fontSize: 25,
+        fontSize: "25rem",
         fontWeight: 'bold'
     },
     fullStoryButton: {

@@ -10,81 +10,104 @@ import { styled } from '@ui-kitten/components';
 import Icon, { Icons } from '../components/Icons';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import colors from '../configs/colors';
+import Collapsible from 'react-native-collapsible';
+import EStyleSheet from 'react-native-extended-stylesheet';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
+import RNPickerSelect from 'react-native-picker-select';
 const { width, height } = Dimensions.get('window');
+EStyleSheet.build({$rem: width / 380});
 
 const SearchNewsScreen = ({ route, navigation }: any) => {
 
     const [text, onChangeText] = useState("")
     const [keyword, setKeyword] = useState("a")
     const [modalVisible, setModalVisible] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(true);
+    const [selectedValue, setSelectedValue] = useState("");
 
     const onSubmitEditing = (event: any) => {
         setKeyword(event.nativeEvent.text)
     }
 
+    const onClickFilters = () => {
+        setIsCollapsed(!isCollapsed);
+    }
+
+    const onSortValueChange = (value:string) => {
+        if(value){
+            setSelectedValue(value)
+        }
+    }
+
     return (
-        <View style={{ backgroundColor: '#fff', flex: 1 }}>
+        <SafeAreaView style={{flex:1, backgroundColor: colors.white}}>
             <View style={styles.headingView}>
                 <Text style={styles.latestNewsText}>Search News</Text>
             </View>
-            <View style={styles.bodyView}>
-                <View style={styles.searchBarView}>
-                    <View style={styles.searchBar}>
-                        <View style={styles.searchIconView}>
-                            <Icon style={styles.searchIcon} type={Icons.MaterialCommunityIcons} name={'text-box-search-outline'} color={'#808B96'} />
-                        </View>
-                        <View style={styles.searchInputView}>
-                            <TextInput
-                                placeholder="Search news"
-                                style={styles.searchInput}
-                                onSubmitEditing={onSubmitEditing}
-                                // value={text}
-                                placeholderTextColor={"#808B96"}
-                            />
-                        </View>
-                    </View>
-                    <Pressable onPress={() => { setModalVisible(true) }} style={styles.searchFilters}>
-                        <View >
-                            <Icon style={styles.searchIcon} type={Icons.MaterialCommunityIcons} name={'filter-variant'} color={colors.white} size={28} />
-                        </View>
-                    </Pressable>
+            <View style={styles.searchBar}>
+                <View style={styles.searchIconView}>
+                    <Icon style={styles.searchIcon} type={Icons.MaterialCommunityIcons} name={'text-box-search-outline'} color={'#808B96'} />
                 </View>
-                <View style={styles.newsView}>
-                    <NewsList
-                        filters={{
-                            q: keyword,
-                            sortBy: "publishedAt"
-                        }}
-                        navigation={navigation}
-                        newsType={"filtered"}
+                <View style={styles.searchInputView}>
+                    <TextInput
+                        placeholder="Search news"
+                        style={styles.searchInput}
+                        onSubmitEditing={onSubmitEditing}
+                        placeholderTextColor={"#808B96"}
                     />
                 </View>
             </View>
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Hello World!</Text>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Hide Modal</Text>
-                        </Pressable>
+            <View style={styles.filtersView}>
+                    <View style={styles.filterLabelItem}>
+                        <Icon style={styles.filterIcon} type={Icons.SimpleLineIcons} name={'equalizer'} color={colors.white} />
+                        <Text style={{marginRight:10, marginLeft: 5, fontSize: 10, color: colors.white}}>Filters</Text>
                     </View>
-                </View>
-            </Modal>
-        </View>
+                    <ScrollView horizontal={true} alwaysBounceHorizontal={true} showsHorizontalScrollIndicator={false}>
+                        <View style={styles.filterItem}>
+                            <RNPickerSelect
+                                onValueChange={onSortValueChange}
+                                items={[
+                                    { label: 'Relevancy', value: 'Relevancy' },
+                                    { label: 'Popularity', value: 'Popularity' },
+                                    { label: 'Published At', value: 'Published At' },
+                                ]}
+                            >
+                                <Text style={{margin:10, fontSize: 10}}>{"Sort News By " + selectedValue}</Text>
+                            </RNPickerSelect>
+                        </View>
+                        
+                        <View style={styles.filterItem}>
+                            {/* <Text style={{margin:10, fontSize: 10}}>Filters</Text> */}
+                            
+                        </View>
+                        <View style={styles.filterItem}>
+                            <Text style={{margin:10, fontSize: 10}}>Filters</Text>
+                        </View>
+                        <View style={styles.filterItem}>
+                            <Text style={{margin:10, fontSize: 10}}>Filters</Text>
+                        </View>
+                        <View style={styles.filterItem}>
+                            <Text style={{margin:10, fontSize: 10}}>Filters</Text>
+                        </View>
+                        <View style={styles.filterItem}>
+                            <Text style={{margin:10, fontSize: 10}}>Filters</Text>
+                        </View>
+                    </ScrollView>
+            </View>
+            <NewsList
+                filters={{
+                    q: keyword,
+                    sortBy: "publishedAt"
+                }}
+                navigation={navigation}
+                newsType={"filtered"}
+            />
+        </SafeAreaView>
     );
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     latestNewsText: {
         color: 'black',
         fontSize: 27,
@@ -93,45 +116,23 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     headingView: {
-        flex: 1,
         justifyContent: 'flex-end'
     },
-    bodyView: {
-        flex: 7,
-    },
-    searchBarView: {
-        flex: 1,
+    filtersView: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginTop: 10,
         marginRight: 10,
-        marginLeft: 10
-    },
-    newsView: {
-        flex: 7
+        marginLeft: 10,
     },
     searchBar: {
-        flex: 5,
-        height: 55,
-        // margin: 10,
+        height: 40,
         borderRadius: 10,
+        marginLeft: 10,
+        marginRight:10,
         backgroundColor: '#EAEDED',
-        // justifyContent: 'center',
         flexDirection: 'row'
     },
-    searchFilters: {
-        flex: 1,
-        height: 55,
-        // margin: 10,
-        marginLeft: 10,
-        borderRadius: 10,
-        backgroundColor: colors.blue,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     searchIconView: {
-        flex: 1,
-        marginLeft: 5,
+        marginLeft: 15,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -140,51 +141,32 @@ const styles = StyleSheet.create({
     },
     searchInputView: {
         justifyContent: 'center',
-        flex: 5
+        marginLeft: 10
     },
     searchInput: {
         color: "#808B96",
     },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
+    filterItem: {
+        opacity: 0.7,
+        backgroundColor: colors.grey,
         borderRadius: 10,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
+        marginBottom:"5rem",
+        marginTop: "5rem",
+        marginRight: "5rem",
+        alignItems: 'center'
     },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
+    filterLabelItem: {
+        backgroundColor: colors.blue,
+        borderRadius: 10,
+        marginBottom:"5rem",
+        marginTop: "5rem",
+        marginRight: "5rem",
+        alignItems: 'center',
+        flexDirection: 'row'
     },
-    buttonOpen: {
-        backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-        backgroundColor: "#2196F3",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
+    filterIcon: {
+        marginLeft: "10rem",
+        fontSize: 16
     }
 })
 

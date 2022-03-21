@@ -3,13 +3,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import { Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import Icon, { Icons } from './Icons';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import * as Animatable from 'react-native-animatable';
 import { Card } from '@ui-kitten/components';
 import moment from 'moment';
+import EStyleSheet from 'react-native-extended-stylesheet';
+const { width, height } = Dimensions.get('window');
+EStyleSheet.build({$rem: width / 380});
 
 const NewsListItem = ({ item, navigation }: any) => {
     return (
@@ -30,9 +33,9 @@ const NewsListItem = ({ item, navigation }: any) => {
     );
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     newsListItem: {
-        height: 110,
+        height: "110rem",
         borderRadius: 10,
         margin: 10,
         backgroundColor: 'white',
@@ -40,15 +43,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     image: {
-        width: 110,
-        height: 110,
+        width: "110rem",
+        height: "110rem",
         // borderTopLeftRadius: 10,
         // borderBottomLeftRadius: 10
         borderRadius: 10,
     },
     newsItemTitle: {
         color: 'black',
-        fontSize: 17,
+        fontSize: "17rem",
         fontWeight: 'bold',
         marginLeft: 10,
         marginRight: 10,
@@ -56,7 +59,7 @@ const styles = StyleSheet.create({
     },
     newsItemDescription: {
         color: 'gray',
-        fontSize: 12,
+        fontSize: "12rem",
         marginLeft: 10,
         marginRight: 10,
         marginTop: 5,
@@ -68,7 +71,7 @@ const styles = StyleSheet.create({
     },
     sourceChipText: {
         color: 'black',
-        fontSize: 11,
+        fontSize: "11rem",
         margin: 6
     },
 })

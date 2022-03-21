@@ -28,10 +28,15 @@ const NewsList = ({ filters, navigation, newsType }: any) => {
     if (newsType === "headlines") {
       getNewsTopHeadlines();
     } else {
-      getFilteredNews()
+      getFilteredNews(false)
     }
 
-  }, [currentPage, filters])
+  }, [currentPage])
+
+  useEffect(() => {
+    getFilteredNews(true)
+
+  }, [filters])
 
   const getNewsTopHeadlines = () => {
     setIsLoading(true)
@@ -42,7 +47,6 @@ const NewsList = ({ filters, navigation, newsType }: any) => {
     const baseUrl = "https://newsapi.org/v2/top-headlines?country=us&apiKey=abea547610574087a1e427a8be1cbc27&page=" + currentPage + "&pageSize=10&" + encodedFilters;
     // const baseUrl = "https://run.mocky.io/v3/32ac4c3e-960e-453c-8997-06b2df3e227f";
 
-    console.log('base', baseUrl)
     axios.get(baseUrl).then((response) => {
       if (response.data.articles.length > 0) {
         // dispatch(setNewsData([...newsData.newsData, ...response.data.articles]))
@@ -56,7 +60,7 @@ const NewsList = ({ filters, navigation, newsType }: any) => {
     });
   }
 
-  const getFilteredNews = () => {
+  const getFilteredNews = (isSearch:boolean) => {
     setIsLoading(true)
     let encodedFilters = Object.keys(filters)
       .map(key => key + '=' + filters[key])
@@ -65,11 +69,15 @@ const NewsList = ({ filters, navigation, newsType }: any) => {
     const baseUrl = "https://newsapi.org/v2/everything?apiKey=abea547610574087a1e427a8be1cbc27&page=" + currentPage + "&pageSize=10&" + encodedFilters;
     // const baseUrl = "https://run.mocky.io/v3/32ac4c3e-960e-453c-8997-06b2df3e227f";
 
-    console.log('base', baseUrl)
     axios.get(baseUrl).then((response) => {
       if (response.data.articles.length > 0) {
         // dispatch(setNewsData([...newsData.newsData, ...response.data.articles]))
-        setNewsData([...newsData, ...response.data.articles]);
+        if(isSearch){
+          setNewsData(response.data.articles);
+        }else{
+          setNewsData([...newsData, ...response.data.articles]);
+        }
+        
       } else {
         setIsEmpty(true)
       }
