@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import * as eva from '@eva-design/eva';
 import Carousel from '../components/Carousel';
 import { ActivityIndicator, Dimensions, ImageBackground, Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
@@ -15,16 +15,19 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import RNPickerSelect from 'react-native-picker-select';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 const { width, height } = Dimensions.get('window');
-EStyleSheet.build({$rem: width / 380});
+EStyleSheet.build({ $rem: width / 380 });
 
 const SearchNewsScreen = ({ route, navigation }: any) => {
 
     const [text, onChangeText] = useState("")
     const [keyword, setKeyword] = useState("a")
-    const [modalVisible, setModalVisible] = useState(false);
+    const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(true);
     const [selectedValue, setSelectedValue] = useState("");
+    const [sortBy, setSortBy] = useState("publishedAt")
 
     const onSubmitEditing = (event: any) => {
         setKeyword(event.nativeEvent.text)
@@ -34,14 +37,49 @@ const SearchNewsScreen = ({ route, navigation }: any) => {
         setIsCollapsed(!isCollapsed);
     }
 
-    const onSortValueChange = (value:string) => {
-        if(value){
+    const onSortValueChange = (value: string) => {
+        if (value) {
             setSelectedValue(value)
+            switch (value) {
+                case ("Relevancy"):
+                    setSortBy("relevancy")
+                    break;
+                case ("Popularity"):
+                    setSortBy("popularity")
+                    break;
+                default:
+                    setSortBy("publishedAt")
+            }
         }
     }
 
+    const showDatePicker = () => {
+        setIsDatePickerVisible(true);
+    };
+
+    const hideDatePicker = () => {
+        setIsDatePickerVisible(false);
+    };
+
+    const handleConfirm = (date: any) => {
+        hideDatePicker();
+    };
+
+    const memoChild = useMemo(() => {
+        return (
+            <NewsList
+                filters={{
+                    q: keyword,
+                    sortBy: sortBy
+                }}
+                navigation={navigation}
+                newsType={"filtered"}
+            />
+        )
+    }, [keyword, sortBy]);
+
     return (
-        <SafeAreaView style={{flex:1, backgroundColor: colors.white}}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
             <View style={styles.headingView}>
                 <Text style={styles.latestNewsText}>Search News</Text>
             </View>
@@ -59,50 +97,50 @@ const SearchNewsScreen = ({ route, navigation }: any) => {
                 </View>
             </View>
             <View style={styles.filtersView}>
-                    <View style={styles.filterLabelItem}>
-                        <Icon style={styles.filterIcon} type={Icons.SimpleLineIcons} name={'equalizer'} color={colors.white} />
-                        <Text style={{marginRight:10, marginLeft: 5, fontSize: 10, color: colors.white}}>Filters</Text>
+                <View style={styles.filterLabelItem}>
+                    <Icon style={styles.filterIcon} type={Icons.SimpleLineIcons} name={'equalizer'} color={colors.white} />
+                    <Text style={{ marginRight: 10, marginLeft: 5, fontSize: 10, color: colors.white }}>Filters</Text>
+                </View>
+                <ScrollView horizontal={true} alwaysBounceHorizontal={true} showsHorizontalScrollIndicator={false}>
+                    <View style={styles.filterItem}>
+                        <RNPickerSelect
+                            onValueChange={onSortValueChange}
+                            items={[
+                                { label: 'Relevancy', value: 'Relevancy' },
+                                { label: 'Popularity', value: 'Popularity' },
+                                { label: 'Published At', value: 'Published At' },
+                            ]}
+                        >
+                            <Text style={{ margin: 10, fontSize: 10 }}>{"Sort News By " + selectedValue}</Text>
+                        </RNPickerSelect>
                     </View>
-                    <ScrollView horizontal={true} alwaysBounceHorizontal={true} showsHorizontalScrollIndicator={false}>
+
+                    <Pressable onPress={showDatePicker}>
                         <View style={styles.filterItem}>
-                            <RNPickerSelect
-                                onValueChange={onSortValueChange}
-                                items={[
-                                    { label: 'Relevancy', value: 'Relevancy' },
-                                    { label: 'Popularity', value: 'Popularity' },
-                                    { label: 'Published At', value: 'Published At' },
-                                ]}
-                            >
-                                <Text style={{margin:10, fontSize: 10}}>{"Sort News By " + selectedValue}</Text>
-                            </RNPickerSelect>
+                            <Text style={{ margin: 10, fontSize: 10 }}>Date Filters</Text>
                         </View>
-                        
-                        <View style={styles.filterItem}>
-                            {/* <Text style={{margin:10, fontSize: 10}}>Filters</Text> */}
-                            
-                        </View>
-                        <View style={styles.filterItem}>
-                            <Text style={{margin:10, fontSize: 10}}>Filters</Text>
-                        </View>
-                        <View style={styles.filterItem}>
-                            <Text style={{margin:10, fontSize: 10}}>Filters</Text>
-                        </View>
-                        <View style={styles.filterItem}>
-                            <Text style={{margin:10, fontSize: 10}}>Filters</Text>
-                        </View>
-                        <View style={styles.filterItem}>
-                            <Text style={{margin:10, fontSize: 10}}>Filters</Text>
-                        </View>
-                    </ScrollView>
+                    </Pressable>
+                    <DateTimePickerModal
+                        isVisible={isDatePickerVisible}
+                        mode="date"
+                        onConfirm={handleConfirm}
+                        onCancel={hideDatePicker}
+                    />
+                    <View style={styles.filterItem}>
+                        <Text style={{ margin: 10, fontSize: 10 }}>Filters</Text>
+                    </View>
+                    <View style={styles.filterItem}>
+                        <Text style={{ margin: 10, fontSize: 10 }}>Filters</Text>
+                    </View>
+                    <View style={styles.filterItem}>
+                        <Text style={{ margin: 10, fontSize: 10 }}>Filters</Text>
+                    </View>
+                    <View style={styles.filterItem}>
+                        <Text style={{ margin: 10, fontSize: 10 }}>Filters</Text>
+                    </View>
+                </ScrollView>
             </View>
-            <NewsList
-                filters={{
-                    q: keyword,
-                    sortBy: "publishedAt"
-                }}
-                navigation={navigation}
-                newsType={"filtered"}
-            />
+            {memoChild}
         </SafeAreaView>
     );
 }
@@ -127,7 +165,7 @@ const styles = EStyleSheet.create({
         height: 40,
         borderRadius: 10,
         marginLeft: 10,
-        marginRight:10,
+        marginRight: 10,
         backgroundColor: '#EAEDED',
         flexDirection: 'row'
     },
@@ -150,7 +188,7 @@ const styles = EStyleSheet.create({
         opacity: 0.7,
         backgroundColor: colors.grey,
         borderRadius: 10,
-        marginBottom:"5rem",
+        marginBottom: "5rem",
         marginTop: "5rem",
         marginRight: "5rem",
         alignItems: 'center'
@@ -158,7 +196,7 @@ const styles = EStyleSheet.create({
     filterLabelItem: {
         backgroundColor: colors.blue,
         borderRadius: 10,
-        marginBottom:"5rem",
+        marginBottom: "5rem",
         marginTop: "5rem",
         marginRight: "5rem",
         alignItems: 'center',

@@ -34,8 +34,8 @@ const NewsList = ({ filters, navigation, newsType }: any) => {
   }, [currentPage])
 
   useEffect(() => {
+    setNewsData([])
     getFilteredNews(true)
-
   }, [filters])
 
   const getNewsTopHeadlines = () => {
