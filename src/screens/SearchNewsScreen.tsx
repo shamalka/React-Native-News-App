@@ -24,7 +24,8 @@ const SearchNewsScreen = ({ route, navigation }: any) => {
 
     const [text, onChangeText] = useState("")
     const [keyword, setKeyword] = useState("a")
-    const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+    const [isFromDatePickerVisible, setIsFromDatePickerVisible] = useState(false);
+    const [isToDatePickerVisible, setIsToDatePickerVisible] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(true);
     const [selectedValue, setSelectedValue] = useState("");
     const [sortBy, setSortBy] = useState("publishedAt")
@@ -53,16 +54,29 @@ const SearchNewsScreen = ({ route, navigation }: any) => {
         }
     }
 
-    const showDatePicker = () => {
-        setIsDatePickerVisible(true);
+    const showFromDatePicker = () => {
+        setIsFromDatePickerVisible(true);
     };
 
-    const hideDatePicker = () => {
-        setIsDatePickerVisible(false);
+    const hideFromDatePicker = () => {
+        setIsFromDatePickerVisible(false);
     };
 
-    const handleConfirm = (date: any) => {
-        hideDatePicker();
+    const handleFromConfirm = (date: any) => {
+        hideFromDatePicker();
+        showToDatePicker()
+    };
+
+    const showToDatePicker = () => {
+        setIsToDatePickerVisible(true);
+    };
+
+    const hideToDatePicker = () => {
+        setIsToDatePickerVisible(false);
+    };
+
+    const handleToConfirm = (date: any) => {
+        hideToDatePicker();
     };
 
     const memoChild = useMemo(() => {
@@ -115,29 +129,30 @@ const SearchNewsScreen = ({ route, navigation }: any) => {
                         </RNPickerSelect>
                     </View>
 
-                    <Pressable onPress={showDatePicker}>
+                    <Pressable onPress={showFromDatePicker}>
                         <View style={styles.filterItem}>
-                            <Text style={{ margin: 10, fontSize: 10 }}>Date Filters</Text>
+                            <Text style={{ margin: 10, fontSize: 10 }}>From</Text>
                         </View>
                     </Pressable>
+
+                    <Pressable onPress={showToDatePicker}>
+                        <View style={styles.filterItem}>
+                            <Text style={{ margin: 10, fontSize: 10 }}>To</Text>
+                        </View>
+                    </Pressable>
+                    
                     <DateTimePickerModal
-                        isVisible={isDatePickerVisible}
+                        isVisible={isFromDatePickerVisible}
                         mode="date"
-                        onConfirm={handleConfirm}
-                        onCancel={hideDatePicker}
+                        onConfirm={handleFromConfirm}
+                        onCancel={hideFromDatePicker}
                     />
-                    <View style={styles.filterItem}>
-                        <Text style={{ margin: 10, fontSize: 10 }}>Filters</Text>
-                    </View>
-                    <View style={styles.filterItem}>
-                        <Text style={{ margin: 10, fontSize: 10 }}>Filters</Text>
-                    </View>
-                    <View style={styles.filterItem}>
-                        <Text style={{ margin: 10, fontSize: 10 }}>Filters</Text>
-                    </View>
-                    <View style={styles.filterItem}>
-                        <Text style={{ margin: 10, fontSize: 10 }}>Filters</Text>
-                    </View>
+                    <DateTimePickerModal
+                        isVisible={isToDatePickerVisible}
+                        mode="date"
+                        onConfirm={handleToConfirm}
+                        onCancel={hideToDatePicker}
+                    />
                 </ScrollView>
             </View>
             {memoChild}
