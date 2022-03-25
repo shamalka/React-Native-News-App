@@ -34,6 +34,5 @@ Sample news format
 ## Screenshots
 
 <img src="https://user-images.githubusercontent.com/24617182/160080448-2cc7e93d-a41a-4fbf-9fbf-2e51062b8cb3.png" alt="Your image title" width="400"/> <img src="https://user-images.githubusercontent.com/24617182/160080464-4925708f-5a85-4051-a091-7835c8d144f4.png" alt="Your image title" width="400"/>
-<img src="https://user-images.githubusercontent.com/24617182/160080474-13d74613-ae44-41c0-8dfb-2b0a9273c62b.png" alt="Your image title" width="400"/> <img src="https://user-images.githubusercontent.com/24617182/160080497-88a0d818-b7cb-4378-8223-92b35b8851d6.png" alt="Your image title" width="400"/>
-<img src="https://user-images.githubusercontent.com/24617182/160080507-ab663ee9-dd66-4ca9-83df-3892d5675125.png" alt="Your image title" width="400"/> <img src="https://user-images.githubusercontent.com/24617182/160080526-7d7d96b7-cf3a-4040-aaf6-2c8cf5a2ae30.png" alt="Your image title" width="400"/>
-
+<img src="https://user-images.githubusercontent.com/24617182/160080526-7d7d96b7-cf3a-4040-aaf6-2c8cf5a2ae30.png" alt="Your image title" width="400"/> <img src="https://user-images.githubusercontent.com/24617182/160080497-88a0d818-b7cb-4378-8223-92b35b8851d6.png" alt="Your image title" width="400"/>
+<img src="https://user-images.githubusercontent.com/24617182/160081657-a3d7b16e-1c38-4acc-99c3-9960657d42d3.png" alt="Your image title" width="400"/> <img src="https://user-images.githubusercontent.com/24617182/160081464-8ac0894c-5924-474e-a23a-6ac96c315ed9.png" alt="Your image title" width="400"/>
